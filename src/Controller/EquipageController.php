@@ -18,7 +18,7 @@ class EquipageController extends AbstractController
      */
     public function index(Request $request, ManagerRegistry $doctrine, EquipageRepository $equipageRepository): Response
     {
-
+        // Instanciation des données du formulaire, avec un objet vide
         $equipage = new Equipage();
         $form = $this->createForm(EquipageType::class, $equipage);
         $form->handleRequest($request);
@@ -29,6 +29,7 @@ class EquipageController extends AbstractController
             $this->addFlash('success', 'Equipage ajouté avec succès');
             return $this->redirectToRoute('app_equipage');
         }
+        // Récupération des équipages
         return $this->render('equipage/index.html.twig', [
             'equipages' => $equipageRepository->findAll(),
             'form' => $form->createView(),
